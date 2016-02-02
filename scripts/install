@@ -30,17 +30,17 @@ current_dir=$(pwd)
 
 cd $run_path
 
-virtualenv ve
-source ve/bin/activate
-pip install lektor==1.1
-echo -e \"\n\n\n\" | ve/bin/lektor --name=\"$3\" --path=\"./run/\"
-ve/bin/lektor build
-echo ve > .gitignore
-git init
-git add .gitignore
-git commit -m 'init'
-git add .
-git commit -m 'initial commit'
+sudo virtualenv ve
+sudo source ve/bin/activate
+sudo pip install lektor==1.1
+sudo echo -e \"\n\n\n\" | sudo ve/bin/lektor --name=\"$3\" --path=\"./run/\"
+sudo ve/bin/lektor build
+sudo echo ve > .gitignore
+sudo git init
+sudo git add .gitignore
+sudo git commit -m 'init'
+sudo git add .
+sudo git commit -m 'initial commit'
 
 cd $pwd
 
