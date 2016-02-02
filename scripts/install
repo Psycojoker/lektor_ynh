@@ -31,8 +31,7 @@ current_dir=$(pwd)
 cd $run_path
 
 sudo virtualenv ve
-sudo source ve/bin/activate
-sudo pip install lektor==1.1
+sudo ve/bin/pip install lektor==1.1
 sudo echo -e \"\n\n\n\" | sudo ve/bin/lektor --name=\"$3\" --path=\"./run/\"
 sudo ve/bin/lektor build
 sudo echo ve > .gitignore
