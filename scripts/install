@@ -26,13 +26,23 @@ sudo mkdir -p $deploy_path
 sudo chown -R www-data: $run_path
 sudo chown -R www-data: $deploy_path
 
-sudo su www-data -c "cd $run_path && virtualenv ve && source ve/bin/activate && pip install lektor==1.1"
+current_dir=$(pwd)
 
-sudo su www-data -c "cd $run_path && echo -e \"\n\n\n\" | ve/bin/lektor --name=\"$3\" --path=\"./run/\""
+cd $run_path
 
-sudo su www-data -c "cd $run_path && ve/bin/lektor build"
+virtualenv ve
+source ve/bin/activate
+pip install lektor==1.1
+echo -e \"\n\n\n\" | ve/bin/lektor --name=\"$3\" --path=\"./run/\"
+ve/bin/lektor build
+echo ve > .gitignore
+git init
+git add .gitignore
+git commit -m 'init'
+git add .
+git commit -m 'initial commit'
 
-sudo su www-data -c "cd $run_path && echo ve > .gitignore && git init && git add .gitignore && git commit -m 'init' && git add . && git commit -m 'initial commit'"
+cd $pwd
 
 if [[ "$path" == "" ]]; then
   sed -i "s@PATHTOCHANGE@/@g" ../conf/nginx.conf
