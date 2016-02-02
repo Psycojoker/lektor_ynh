@@ -1,0 +1,30 @@
+set -e
+
+# Retrieve arguments
+domain=$1
+path=$2
+name=$3
+admin_user=$4
+
+# Check domain/path availability
+sudo yunohost app checkurl $domain$path -a lektor
+if [[ ! $? -eq 0 ]]; then
+    exit 1
+fi
+
+path=${path%/}
+
+sudo yunohost app setting lektor version -v "1.1"
+
+sudo apt-get install python-virtualenv
+
+run_path=/var/www/lektor/run
+deploy_path=/var/www/lektor/build
+sudo mkdir -p $run_path
+sudo mkdir -p $deploy_path
+
+sudo chown -R www-data: $final_path
+
+su www-data -c "cd $run_path && virtualenv ve && source ve/bin/activate && pip install lektor==1.1"
+
+su www-data -c "cd $run_path && echo -e \"\n\n\n\" | ve/bin/lektor --name=\"$3\" --path=\"./run/\""
