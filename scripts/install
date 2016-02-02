@@ -29,6 +29,8 @@ su www-data -c "cd $run_path && virtualenv ve && source ve/bin/activate && pip i
 
 su www-data -c "cd $run_path && echo -e \"\n\n\n\" | ve/bin/lektor --name=\"$3\" --path=\"./run/\""
 
+su www-data -c "cd $run_path && ve/bin/lektor build"
+
 if [[ "$path" == "" ]]; then
   sed -i "s@PATHTOCHANGE@/@g" ../conf/nginx.conf
 else
