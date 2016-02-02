@@ -16,7 +16,7 @@ path=${path%/}
 
 sudo yunohost app setting lektor version -v "1.1"
 
-sudo apt-get install python-virtualenv
+sudo apt-get install python-virtualenv rsync
 
 run_path=/var/www/lektor/run
 deploy_path=/var/www/lektor/build
