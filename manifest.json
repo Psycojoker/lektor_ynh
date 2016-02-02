@@ -30,6 +30,14 @@
                 "default": "/site"
             },
             {
+                "name": "name",
+                "ask": {
+                    "en": "Choose a name for your website"
+                },
+                "example": "My Website",
+                "default": "My Website"
+            },
+            {
                 "name": "admin_user",
                 "type": "user",
                 "ask": {
