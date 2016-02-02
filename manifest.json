@@ -1,0 +1,43 @@
+{
+    "name": "Lektor",
+    "id": "lektor",
+    "description": {
+        "en": "Lektor is a static website generator that ships with an admin interface. This package integrate the admin interface into YunoHost SSO.",
+        "fr": "Lektor est générateur de site web statique livré avec une interface d'administration. Ce paquet intègre l'interface d'administration dans le SSO de YunoHost."
+    },
+    "license": "GPL-3+",
+    "maintainer": {
+        "name": "bram",
+        "email": "cortex@worlddomination.be",
+        "url": "http://worlddomination.be"
+    },
+    "multi_instance": "false",
+    "arguments": {
+        "install" : [
+            {
+                "name": "domain",
+                "ask": {
+                    "en": "Choose a domain for Lektor"
+                },
+                "example": "domain.org"
+            },
+            {
+                "name": "path",
+                "ask": {
+                    "en": "Choose a path for your website"
+                },
+                "example": "/site",
+                "default": "/site"
+            },
+            {
+                "name": "admin_user",
+                "type": "user",
+                "ask": {
+                    "en": "Choose an admin user (the one who will be able to access the admin interface)",
+                    "fr": "Choisissez l'administrateur (seul autorisé à accéder à l'interface d'administration)"
+                },
+                "example": "johndoe"
+            },
+        ]
+    }
+}
