@@ -28,3 +28,18 @@ sudo chown -R www-data: $final_path
 su www-data -c "cd $run_path && virtualenv ve && source ve/bin/activate && pip install lektor==1.1"
 
 su www-data -c "cd $run_path && echo -e \"\n\n\n\" | ve/bin/lektor --name=\"$3\" --path=\"./run/\""
+
+if [[ "$path" == "" ]]; then
+  sed -i "s@PATHTOCHANGE@/@g" ../conf/nginx.conf
+else
+  sed -i "s@PATHTOCHANGE@$path@g" ../conf/nginx.conf
+fi
+
+sed -i "s@DEPLOY_PATH@$deploy_path@g" ../conf/nginx.conf
+
+sudo cp ../conf/nginx.conf /etc/nginx/conf.d/$domain.d/lektor.conf
+
+# Reload Nginx and regenerate SSOwat conf
+sudo service nginx reload
+sudo yunohost app setting lektor protected_uris -v "/admin/"
+sudo yunohost app ssowatconf
