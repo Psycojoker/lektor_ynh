@@ -32,6 +32,8 @@ su www-data -c "cd $run_path && echo -e \"\n\n\n\" | ve/bin/lektor --name=\"$3\"
 
 su www-data -c "cd $run_path && ve/bin/lektor build"
 
+su www-data -c "cd $run_path && echo ve > .gitignore && git init && git add .gitignore && git commit -m 'init' && git add . && git commit -m 'initial commit'"
+
 if [[ "$path" == "" ]]; then
   sed -i "s@PATHTOCHANGE@/@g" ../conf/nginx.conf
 else
