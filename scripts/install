@@ -23,7 +23,8 @@ deploy_path=/var/www/lektor/build
 sudo mkdir -p $run_path
 sudo mkdir -p $deploy_path
 
-sudo chown -R www-data: $final_path
+sudo chown -R www-data: $run_path
+sudo chown -R www-data: $deploy_path
 
 su www-data -c "cd $run_path && virtualenv ve && source ve/bin/activate && pip install lektor==1.1"
 
