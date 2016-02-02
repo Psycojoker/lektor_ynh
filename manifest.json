@@ -45,7 +45,7 @@
                     "fr": "Choisissez l'administrateur (seul autorisé à accéder à l'interface d'administration)"
                 },
                 "example": "johndoe"
-            },
+            }
         ]
     }
 }
