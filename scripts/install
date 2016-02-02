@@ -42,6 +42,8 @@ sudo git commit -m 'init'
 sudo git add .
 sudo git commit -m 'initial commit'
 
+chown -R www-data:www-data /var/www/lektor
+
 cd $pwd
 
 if [[ "$path" == "" ]]; then
