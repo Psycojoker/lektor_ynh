@@ -1,0 +1,13 @@
+[Unit]
+Description=Lektor admin server
+After=network.target
+
+[Service]
+User=statsite
+ExecStart=/var/www/lektor/ve/bin/lektor server
+ExecReload=/bin/kill -HUP $MAINPID
+KillMode=process
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
