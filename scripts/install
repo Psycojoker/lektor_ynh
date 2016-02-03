@@ -19,13 +19,8 @@ sudo yunohost app setting lektor version -v "1.1"
 sudo apt-get install -y python-virtualenv rsync libffi-dev
 
 base_path=/var/www/lektor/
-run_path=$base_path/run
 deploy_path=$base_path/build
-sudo mkdir -p $run_path
 sudo mkdir -p $deploy_path
-
-sudo chown -R www-data: $run_path
-sudo chown -R www-data: $deploy_path
 
 current_dir=$(pwd)
 
