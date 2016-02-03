@@ -18,8 +18,9 @@ sudo yunohost app setting lektor version -v "1.1"
 
 sudo apt-get install -y python-virtualenv rsync libffi-dev
 
-run_path=/var/www/lektor/run
-deploy_path=/var/www/lektor/build
+base_path=/var/www/lektor/
+run_path=$base_path/run
+deploy_path=$base_path/build
 sudo mkdir -p $run_path
 sudo mkdir -p $deploy_path
 
@@ -28,11 +29,12 @@ sudo chown -R www-data: $deploy_path
 
 current_dir=$(pwd)
 
-cd $run_path
+cd $base_path
 
 sudo virtualenv ve
 sudo ve/bin/pip install lektor==1.1
-sudo echo -e \"\n\n\n\" | sudo ve/bin/lektor quickstart --name=\"$3\" --path=\"./run/\"
+sudo echo -e "\n\n\n" | sudo ve/bin/lektor quickstart --name="$3" --path="./run/"
+cd run
 sudo ve/bin/lektor build
 sudo echo ve > .gitignore
 sudo git init
@@ -41,7 +43,7 @@ sudo git commit -m 'init'
 sudo git add .
 sudo git commit -m 'initial commit'
 
-chown -R www-data:www-data /var/www/lektor
+chown -R www-data:www-data $base_path
 
 cd $pwd
 
