@@ -32,7 +32,7 @@ cd $run_path
 
 sudo virtualenv ve
 sudo ve/bin/pip install lektor==1.1
-sudo echo -e \"\n\n\n\" | sudo ve/bin/lektor --name=\"$3\" --path=\"./run/\"
+sudo echo -e \"\n\n\n\" | sudo ve/bin/lektor quickstart --name=\"$3\" --path=\"./run/\"
 sudo ve/bin/lektor build
 sudo echo ve > .gitignore
 sudo git init
