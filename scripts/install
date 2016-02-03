@@ -24,6 +24,20 @@ sudo mkdir -p $deploy_path
 
 current_dir=$(pwd)
 
+email=$(yunohost user info $admin_user | grep "mail: " | cut -d " " -f 2-)
+firstname=$(yunohost user info $admin_user | grep "firstname: " | cut -d " " -f 2-)
+lastname=$(yunohost user info $admin_user | grep "lastname: " | cut -d " " -f 2-)
+
+if [ ! "$(git config --global user.name)" ]
+then
+    git config --global user.name "$firstname $lastname"
+fi
+
+if [ ! "$(git config --global user.email)" ]
+then
+    git config --global user.email $email
+fi
+
 cd $base_path
 
 sudo virtualenv ve
