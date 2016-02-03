@@ -31,7 +31,7 @@ sudo ve/bin/pip install lektor==1.1
 sudo echo -e "\n\n\n" | sudo ve/bin/lektor quickstart --name="$3" --path="./run/"
 cd run
 sudo ../ve/bin/lektor build
-sudo mv $(sudo ../ve/bin/lektor project-info --output-path)/* ../build/
+sudo cp -a $(sudo ../ve/bin/lektor project-info --output-path)/. ../build/
 sudo echo ve | sudo tee .gitignore
 sudo git init
 sudo git add .gitignore
