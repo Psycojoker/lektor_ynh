@@ -55,7 +55,7 @@ sudo git commit -m 'initial commit'
 
 sudo chown -R www-data:www-data $base_path
 
-cd $pwd
+cd $current_dir
 
 if [[ "$path" == "" ]]; then
   sed -i "s@PATHTOCHANGE@/@g" ../conf/nginx.conf
