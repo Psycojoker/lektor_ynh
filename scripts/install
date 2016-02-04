@@ -53,7 +53,7 @@ sudo git commit -m 'init'
 sudo git add .
 sudo git commit -m 'initial commit'
 
-chown -R www-data:www-data $base_path
+sudo chown -R www-data:www-data $base_path
 
 cd $pwd
 
@@ -69,8 +69,8 @@ sudo cp ../conf/nginx.conf /etc/nginx/conf.d/$domain.d/lektor.conf
 
 sudo cp ../conf/ynh-lektor.service /etc/systemd/system/
 
-systemctl daemon-reload
-systemctl start ynh-lektor
+sudo systemctl daemon-reload
+sudo systemctl start ynh-lektor
 
 # Reload Nginx and regenerate SSOwat conf
 sudo service nginx reload
