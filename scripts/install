@@ -33,7 +33,7 @@ then
     sudo git config --global user.name "$firstname $lastname"
 fi
 
-if [ ! "$(sudo git config --global user.email)" ]
+if [ ! "$(trap 'sudo git config --global user.email' SIGTERM)" ]
 then
     sudo git config --global user.email $email
 fi
