@@ -54,7 +54,7 @@ sudo su lektor -c "ve/bin/pip install lektor==1.1"
 sudo echo -e "\n\n\n" | sudo su lektor -c "ve/bin/lektor quickstart --name=\"$3\" --path=\"./run/\""
 cd run
 sudo su lektor -c "../ve/bin/lektor build"
-sudo su lektor -c "cp -a $(sudo ../ve/bin/lektor project-info --output-path)/. ../build/"
+sudo su lektor -c "cp -a $(sudo su lektor -c \"../ve/bin/lektor project-info --output-path\")/. ../build/"
 sudo echo ve | sudo tee .gitignore
 sudo git init
 sudo git add .gitignore
