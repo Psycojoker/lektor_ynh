@@ -41,7 +41,7 @@ then
     sudo su lektor -c "git config --global user.name \"$firstname $lastname\""
 fi
 
-if [ ! "$(trap 'sudo su -c \'git config --global user.email\'' SIGTERM)" ]
+if [ ! "$(trap 'sudo su -c \"git config --global user.email\"' SIGTERM)" ]
 then
     sudo su lektor -c "git config --global user.email $email"
 fi
