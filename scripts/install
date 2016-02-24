@@ -32,6 +32,7 @@ sudo mkdir -p $base_path
 current_dir=$(pwd)
 
 email=$(sudo yunohost user info $admin_user | grep "mail: " | cut -d " " -f 2-)
+[ "$email" ] || email=admin@$(sudo yunohost domain list | head -n 1 | cut -d " " -f 2-)
 firstname=$(sudo yunohost user info $admin_user | grep "firstname: " | cut -d " " -f 2-)
 lastname=$(sudo yunohost user info $admin_user | grep "lastname: " | cut -d " " -f 2-)
 
