@@ -31,7 +31,7 @@ lastname=$(sudo yunohost user info $admin_user | grep "lastname: " | cut -d " " 
 
 if [ ! "$(sudo su lektor -c 'git config --global user.name')" ]
 then
-    sudo su lektor -c 'git config --global user.name "$firstname $lastname"'
+    sudo su lektor -c "git config --global user.name \"$firstname $lastname\""
 fi
 
 if [ ! "$(trap 'sudo su -c \'git config --global user.email\'' SIGTERM)" ]
