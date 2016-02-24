@@ -1,0 +1,8 @@
+set -e
+
+domain=$(sudo yunohost app setting lektor domain)
+
+sudo rm -rf /home/lektor/lektor
+sudo rm -f /etc/nginx/conf.d/$domain.d/lektor.conf
+
+sudo service nginx reload
