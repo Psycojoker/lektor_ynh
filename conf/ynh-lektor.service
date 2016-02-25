@@ -3,7 +3,7 @@ Description=Lektor admin server
 After=network.target
 
 [Service]
-User=statsite
+User=lektor
 ExecStart=/var/www/lektor/ve/bin/lektor server
 WorkingDirectory=/var/www/lektor/run
 ExecReload=/bin/kill -HUP $MAINPID
