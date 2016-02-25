@@ -12,6 +12,11 @@ if [[ ! $? -eq 0 ]]; then
     exit 1
 fi
 
+if [[ "$path" != "" && "$path" != "/" ]]; then
+    echo "Lektor can only be installed on the root of a domain"
+    exit 1
+fi
+
 path=${path%/}
 
 sudo yunohost app setting lektor version -v "1.1"
