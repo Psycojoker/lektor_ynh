@@ -21,7 +21,7 @@ sudo apt-get install -y python-virtualenv rsync libffi-dev libssl-dev
 id -u lektor>/dev/null 2>&1 || sudo useradd --create-home -p "\!" lektor
 
 base_path=/home/lektor/lektor
-deploy_path=$base_path/build/
+deploy_path=$base_path/build
 sudo mkdir -p $base_path
 
 current_dir=$(pwd)
@@ -50,7 +50,7 @@ sudo su lektor -c "ve/bin/pip install lektor==1.1"
 cd run
 sudo su lektor -c "../ve/bin/lektor build"
 output_path=$(sudo su lektor -c "../ve/bin/lektor project-info --output-path")
-sudo su lektor -c "ln -s $output_path ../build/"
+sudo su lektor -c "ln -s $output_path $deploy_path"
 sudo echo ve | sudo tee .gitignore
 # sudo su lektor -c "git init"
 # if [ "$(sudo su lektor -c 'git diff --cached')" ]
@@ -74,7 +74,7 @@ else
   sed -i "s@PATHTOCHANGE@$path@g" ../conf/nginx.conf
 fi
 
-sed -i "s@DEPLOY_PATH@$deploy_path@g" ../conf/nginx.conf
+sed -i "s@DEPLOY_PATH@$deploy_path/@g" ../conf/nginx.conf
 
 sudo cp ../conf/nginx.conf /etc/nginx/conf.d/$domain.d/lektor.conf
 
