@@ -45,6 +45,14 @@
                     "fr": "Choisissez l'administrateur (seul autorisé à accéder à l'interface d'administration)"
                 },
                 "example": "johndoe"
+            },
+            {
+                "name": "ssh_pub_key",
+                "ask": {
+                    "en": "A public ssh key to be able to clone the repository (no, no password.).",
+                },
+                "example": "The content of your ~/.ssh/id_rsa.pub or generate one with ssh-keygen.",
+                "default": ""
             }
         ]
     }

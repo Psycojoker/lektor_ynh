@@ -5,6 +5,7 @@ domain=$1
 path=$2
 name=$3
 admin_user=$4
+ssh_pub_key=$4
 
 # Check domain/path availability
 sudo yunohost app checkurl $domain$path -a lektor
@@ -82,6 +83,14 @@ sed -i "s@DEPLOY_PATH@$deploy_path/@g" ../conf/nginx.conf
 sudo cp ../conf/nginx.conf /etc/nginx/conf.d/$domain.d/lektor.conf
 
 sudo cp ../conf/ynh-lektor.service /etc/systemd/system/
+
+if [ "$ssh_pub_key" ]; then
+    mkdir -p /home/lektor/.ssh
+    if [ -e "/home/lektor/.ssh/authorized_keys" || ! "$(sudo grep \"$ssh_pub_key\" /home/lektor/.ssh/authorized_keys)" ]; then
+        sudo echo "$ssh_pub_key" >> /home/lektor/.ssh/authorized_keys
+        sudo chown -R lektor:lektor /home/lektor/.ssh/authorized_keys
+    fi
+fi
 
 sudo systemctl daemon-reload
 sudo systemctl start ynh-lektor
