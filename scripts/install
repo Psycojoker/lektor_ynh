@@ -50,7 +50,7 @@ sudo su lektor -c "ve/bin/pip install lektor==1.1"
 cd run
 sudo su lektor -c "../ve/bin/lektor build"
 output_path=$(sudo su lektor -c "../ve/bin/lektor project-info --output-path")
-sudo su lektor -c "cp -a $output_path ../build/"
+sudo su lektor -c "ln -s $output_path ../build/"
 sudo echo ve | sudo tee .gitignore
 # sudo su lektor -c "git init"
 # if [ "$(sudo su lektor -c 'git diff --cached')" ]
