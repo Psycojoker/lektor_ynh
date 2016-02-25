@@ -59,6 +59,10 @@ output_path=$(sudo su lektor -c "../ve/bin/lektor project-info --output-path")
 sudo su lektor -c "ln -s $output_path $deploy_path"
 sudo echo ve | sudo tee .gitignore
 sudo su lektor -c "git init"
+sudo su lektor -c "git config receive.denyCurrentBranch ignore"
+sudo cp $current_dir/../conf/post-receive .git/hooks/post-receive
+sudo chmod +x .git/hooks/post-receive
+sudo chown lektor:lektor .git/hooks/post-receive
 sudo su lektor -c "git add .gitignore"
 sed -i "s@DOMAIN@$domain@g" $current_dir/../conf/contents.lr
 sudo cp $current_dir/../conf/contents.lr /home/lektor/lektor/run/content/contents.lr
