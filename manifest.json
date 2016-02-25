@@ -49,7 +49,7 @@
             {
                 "name": "ssh_pub_key",
                 "ask": {
-                    "en": "A public ssh key to be able to clone the repository (no, no password.).",
+                    "en": "A public ssh key to be able to clone the repository (no, no password.)."
                 },
                 "example": "The content of your ~/.ssh/id_rsa.pub or generate one with ssh-keygen.",
                 "default": ""
