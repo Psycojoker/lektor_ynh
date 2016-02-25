@@ -53,13 +53,13 @@ output_path=$(sudo su lektor -c "../ve/bin/lektor project-info --output-path")
 sudo su lektor -c "cp -a $output_path ../build/"
 sudo echo ve | sudo tee .gitignore
 sudo su lektor -c "git init"
-if [ "$(sudo su lektor -c \"git diff --cached\")" ]
+if [ "$(sudo su lektor -c 'git diff --cached')" ]
 then
     sudo su lektor -c "git commit -m 'initial commit'"
 fi
 sudo su lektor -c "git commit -m 'init'"
 sudo su lektor -c "git add ."
-if [ "$(sudo su lektor -c \"git diff --cached\")" ]
+if [ "$(sudo su lektor -c 'git diff --cached')" ]
 then
     sudo su lektor -c "git commit -m 'initial commit'"
 fi
