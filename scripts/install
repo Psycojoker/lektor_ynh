@@ -18,13 +18,7 @@ sudo yunohost app setting lektor version -v "1.1"
 
 sudo apt-get install -y python-virtualenv rsync libffi-dev libssl-dev
 
-if trap 'id -u lektor>/dev/null 2>&1' SIGTERM
-then
-    echo
-else
-    sudo useradd --create-home -p "\!" lektor
-fi
-
+id -u lektor>/dev/null 2>&1 || sudo useradd --create-home -p "\!" lektor
 
 base_path=/home/lektor/lektor/
 sudo mkdir -p $base_path
