@@ -24,10 +24,10 @@
             {
                 "name": "path",
                 "ask": {
-                    "en": "Choose a path for your website"
+                    "en": "The path of your website, sadly lektor only works with '/' for a path."
                 },
-                "example": "/site",
-                "default": "/site"
+                "example": "/",
+                "default": "/"
             },
             {
                 "name": "name",
