@@ -18,6 +18,9 @@ if [[ "$path" != "" && "$path" != "/" ]]; then
     exit 1
 fi
 
+sudo yunohost user list --json | grep -q "\"username\": \"$admin_user\"" \
+  || (echo "User '$admin_user' does not exist" && exit 1)
+
 path=${path%/}
 
 sudo yunohost app setting lektor version -v "1.1"
