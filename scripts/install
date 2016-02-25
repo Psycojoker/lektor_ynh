@@ -20,6 +20,7 @@ fi
 
 sudo yunohost user list --json | grep -q "\"username\": \"$admin_user\"" \
   || (echo "User '$admin_user' does not exist" && exit 1)
+sudo yunohost app setting lektor allowed_users -v "$admin_user"
 
 path=${path%/}
 
