@@ -59,7 +59,7 @@ sudo su lektor -c "ln -s $output_path $deploy_path"
 sudo echo ve | sudo tee .gitignore
 sudo su lektor -c "git init"
 sudo su lektor -c "git add .gitignore"
-sed -i "s@DOMAIN@$domain@g" ../conf/contents.lr
+sed -i "s@DOMAIN@$domain@g" $current_dir/../conf/contents.lr
 cp $current_dir/../conf/contents.lr /home/lektor/lektor/run/content/contents.lr
 sudo su lektor -c "git add ."
 if [ "$(sudo su lektor -c 'git status --porcelain')" ]
