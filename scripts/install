@@ -99,6 +99,8 @@ fi
 sudo systemctl daemon-reload
 sudo systemctl start ynh-lektor
 
+sudo cp ../conf/cron /etc/cron.d/lektor
+
 # Reload Nginx and regenerate SSOwat conf
 sudo service nginx reload
 sudo yunohost app setting lektor protected_uris -v "/admin/"
