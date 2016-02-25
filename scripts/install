@@ -56,7 +56,10 @@ sudo su lektor -c "git init"
 sudo su lektor -c "git add .gitignore"
 sudo su lektor -c "git commit -m 'init'"
 sudo su lektor -c "git add ."
-sudo su lektor -c "git commit -m 'initial commit'"
+if [ "$(sudo su lektor -c \"git diff --cached\")" ]
+then
+    sudo su lektor -c "git commit -m 'initial commit'"
+fi
 
 sudo chown -R lektor:lektor $base_path
 
