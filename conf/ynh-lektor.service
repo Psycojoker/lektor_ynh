@@ -4,8 +4,8 @@ After=network.target
 
 [Service]
 User=lektor
-ExecStart=/var/www/lektor/ve/bin/lektor server
-WorkingDirectory=/var/www/lektor/run
+ExecStart=/home/lektor/lektor/ve/bin/lektor server
+WorkingDirectory=/home/lektor/lektor/run
 ExecReload=/bin/kill -HUP $MAINPID
 KillMode=process
 Restart=on-failure
