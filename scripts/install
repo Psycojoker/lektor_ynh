@@ -86,7 +86,7 @@ sudo cp ../conf/ynh-lektor.service /etc/systemd/system/
 
 if [ "$ssh_pub_key" ]; then
     mkdir -p /home/lektor/.ssh
-    if [ -e "/home/lektor/.ssh/authorized_keys" ] || [ ! "$(sudo grep \"$ssh_pub_key\" /home/lektor/.ssh/authorized_keys)" ]; then
+    if [ ! -e "/home/lektor/.ssh/authorized_keys" ] || [ ! "$(sudo grep \"$ssh_pub_key\" /home/lektor/.ssh/authorized_keys)" ]; then
         sudo su -c "echo \"$ssh_pub_key\" >> /home/lektor/.ssh/authorized_keys"
         sudo chown -R lektor:lektor /home/lektor/.ssh/authorized_keys
     fi
