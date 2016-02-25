@@ -1,0 +1,10 @@
+#!/bin/bash
+
+test "${PWD%/.git}" != "$PWD" && cd .. 
+unset GIT_DIR GIT_WORK_TREE
+
+if [ "$(git status --porcelain)" ]; then
+    git add .
+    git commit -m "update"
+    exit 1
+fi
