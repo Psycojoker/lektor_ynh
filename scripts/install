@@ -5,7 +5,7 @@ domain=$1
 path=$2
 name=$3
 admin_user=$4
-ssh_pub_key=$4
+ssh_pub_key=$5
 
 # Check domain/path availability
 sudo yunohost app checkurl $domain$path -a lektor
