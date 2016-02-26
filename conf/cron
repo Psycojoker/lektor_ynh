@@ -1,1 +1,1 @@
-*/30 * * * * lektor cd /home/lektor/lektor/run && git add . && git commit -m update > /dev/null 2>&1
+*/10 * * * * lektor cd /home/lektor/lektor/run && git add . && git commit -m update > /dev/null 2>&1
