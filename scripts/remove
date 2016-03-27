@@ -7,3 +7,7 @@ sudo rm -f /etc/nginx/conf.d/$domain.d/lektor.conf
 sudo rm -f /etc/cron.d/lektor
 
 sudo service nginx reload
+
+sudo systemctl stop ynh-lektor
+sudo rm -f /etc/systemd/system/ynh-lektor.service
+sudo systemctl daemon-reload
