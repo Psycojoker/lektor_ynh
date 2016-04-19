@@ -104,6 +104,7 @@ if [ "$ssh_pub_key" ]; then
 fi
 
 sudo systemctl daemon-reload
+sudo systemctl enable ynh-lektor
 sudo systemctl start ynh-lektor
 
 sudo cp ../conf/cron /etc/cron.d/lektor
