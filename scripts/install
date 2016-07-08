@@ -26,7 +26,8 @@ path=${path%/}
 
 sudo yunohost app setting lektor version -v "2.3"
 
-sudo apt-get install -y python-virtualenv rsync libffi-dev libssl-dev python-dev
+sudo apt-get update
+sudo apt-get install -y python-virtualenv rsync libffi-dev libssl-dev python-dev imagemagick
 
 id -u lektor>/dev/null 2>&1 || sudo useradd --create-home -p "\!" lektor
 
