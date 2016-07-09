@@ -1,6 +1,8 @@
 set -eux
 
-version=$(sudo yunohost app setting lektor version)
+$app=lektor
+
+version=$(sudo yunohost app setting $app version)
 
 # 1.1 -> 2
 if [[ "$version" == "1.1" ]]; then
@@ -9,7 +11,7 @@ if [[ "$version" == "1.1" ]]; then
 
     sudo su lektor -c "/home/lektor/lektor/ve/bin/pip install -U lektor==2.3"
 
-    sudo yunohost app setting lektor version -v "2.3"
+    sudo yunohost app setting $app version -v "2.3"
 
     sudo systemctl restart ynh-lektor
 
