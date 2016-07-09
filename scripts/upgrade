@@ -1,6 +1,6 @@
 set -eux
 
-$app=lektor
+app=lektor
 
 version=$(sudo yunohost app setting $app version)
 
