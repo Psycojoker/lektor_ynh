@@ -1,6 +1,7 @@
 set -eux
 
 app=$YNH_APP_INSTANCE_NAME
+number=$YNH_APP_INSTANCE_NUMBER
 
 # Retrieve arguments
 domain=$YNH_APP_ARG_DOMAIN
@@ -92,11 +93,13 @@ else
   sed -i "s@PATHTOCHANGE@$path@g" ../conf/nginx.conf
 fi
 
-sed -i "s@DEPLOY_PATH@$deploy_path/@g" ../conf/nginx.conf
+sudo sed -i "s@DEPLOY_PATH@$deploy_path/@g" ../conf/nginx.conf
+sudo sed -i "s@PORT_NUMBER@$number@g" ../conf/nginx.conf
 
 sudo cp ../conf/nginx.conf /etc/nginx/conf.d/$domain.d/$app.conf
 
 sudo cp ../conf/ynh-lektor.service /etc/systemd/system/ynh-$app.service
+sudo sed -i "s@PORT_NUMBER@$number@g" /etc/systemd/system/ynh-$app.service
 
 if [ "$ssh_pub_key" ]; then
     sudo mkdir -p /home/$app/.ssh

@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 User=lektor
-ExecStart=/home/lektor/lektor/ve/bin/lektor server
+ExecStart=/home/lektor/lektor/ve/bin/lektor server -p 500PORT_NUMBER
 WorkingDirectory=/home/lektor/lektor/run
 ExecReload=/bin/kill -HUP $MAINPID
 KillMode=process
