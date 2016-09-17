@@ -11,7 +11,10 @@
         "email": "cortex@worlddomination.be",
         "url": "http://worlddomination.be"
     },
-    "multi_instance": "false",
+    "requirements": {
+        "yunohost": ">> 2.4.0"
+    },
+    "multi_instance": true,
     "arguments": {
         "install" : [
             {
