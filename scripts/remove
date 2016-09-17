@@ -1,13 +1,16 @@
 set -e
 
-domain=$(sudo yunohost app setting lektor domain)
+# See comments in install script
+app=$YNH_APP_INSTANCE_NAME
 
-sudo rm -rf /home/lektor/lektor
-sudo rm -f /etc/nginx/conf.d/$domain.d/lektor.conf
-sudo rm -f /etc/cron.d/lektor
+domain=$(sudo yunohost app setting $app domain)
+
+sudo rm -rf /home/$app/lektor
+sudo rm -f /etc/nginx/conf.d/$domain.d/$app.conf
+sudo rm -f /etc/cron.d/$app
 
 sudo service nginx reload
 
-sudo systemctl stop ynh-lektor
-sudo rm -f /etc/systemd/system/ynh-lektor.service
+sudo systemctl stop ynh-$app
+sudo rm -f /etc/systemd/system/ynh-$app.service
 sudo systemctl daemon-reload

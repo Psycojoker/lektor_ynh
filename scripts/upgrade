@@ -1,6 +1,6 @@
 set -eux
 
-app=lektor
+app=$YNH_APP_INSTANCE_NAME
 
 version=$(sudo yunohost app setting $app version)
 
@@ -9,11 +9,11 @@ if [[ "$version" == "1.1" ]]; then
     sudo apt-get update
     sudo apt-get install -y python-dev imagemagick
 
-    sudo su lektor -c "/home/lektor/lektor/ve/bin/pip install -U lektor==2.3"
+    sudo su $app -c "/home/$app/lektor/ve/bin/pip install -U lektor==2.3"
 
     sudo yunohost app setting $app version -v "2.3"
 
-    sudo systemctl restart ynh-lektor
+    sudo systemctl restart ynh-$app
 
     version="2.3"
 fi

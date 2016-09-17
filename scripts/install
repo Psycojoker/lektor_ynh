@@ -1,5 +1,7 @@
 set -eux
 
+app=$YNH_APP_INSTANCE_NAME
+
 # Retrieve arguments
 domain=$YNH_APP_ARG_DOMAIN
 path=$YNH_APP_ARG_PATH
@@ -8,7 +10,7 @@ admin_user=$YNH_APP_ARG_ADMIN_USER
 ssh_pub_key=$YNH_APP_ARG_SSH_PUB_KEY
 
 # Check domain/path availability
-sudo yunohost app checkurl $domain$path -a lektor
+sudo yunohost app checkurl $domain$path -a $app
 if [[ ! $? -eq 0 ]]; then
     exit 1
 fi
@@ -20,18 +22,18 @@ fi
 
 sudo yunohost user list --json | grep -q "\"username\": \"$admin_user\"" \
   || (echo "User '$admin_user' does not exist" && exit 1)
-sudo yunohost app setting lektor allowed_users -v "$admin_user"
+sudo yunohost app setting $app allowed_users -v "$admin_user"
 
 path=${path%/}
 
-sudo yunohost app setting lektor version -v "2.3"
+sudo yunohost app setting $app version -v "2.3"
 
 sudo apt-get update
 sudo apt-get install -y python-virtualenv rsync libffi-dev libssl-dev python-dev imagemagick
 
-id -u lektor>/dev/null 2>&1 || sudo useradd --create-home -p "\!" lektor
+id -u $app>/dev/null 2>&1 || sudo useradd --create-home -p "\!" $app
 
-base_path=/home/lektor/lektor
+base_path=/home/$app/lektor
 deploy_path=$base_path/build
 sudo mkdir -p $base_path
 
@@ -42,45 +44,45 @@ email=$(sudo yunohost user info $admin_user | grep "mail: " | cut -d " " -f 2-)
 firstname=$(sudo yunohost user info $admin_user | grep "firstname: " | cut -d " " -f 2-)
 lastname=$(sudo yunohost user info $admin_user | grep "lastname: " | cut -d " " -f 2-)
 
-if [ ! "$(sudo su lektor -c 'git config --global user.name')" ]
+if [ ! "$(sudo su $app -c 'git config --global user.name')" ]
 then
-    sudo su lektor -c "git config --global user.name \"$firstname $lastname\""
+    sudo su $app -c "git config --global user.name \"$firstname $lastname\""
 fi
 
 if [ ! "$(trap 'sudo su -c \"git config --global user.email\"' SIGTERM)" ]
 then
-    sudo su lektor -c "git config --global user.email $email"
+    sudo su $app -c "git config --global user.email $email"
 fi
 
 cd $base_path
-sudo chown -R lektor:lektor $base_path/..
+sudo chown -R $app:$app $base_path/..
 
-sudo su lektor -c "virtualenv ve"
-sudo su lektor -c "ve/bin/pip install lektor==2.3"
-[ -e "/home/lektor/lektor/run" ] || (sudo echo -e "\n\n\n" | sudo su lektor -c "ve/bin/lektor quickstart --name=\"$3\" --path=\"./run/\"")
+sudo su $app -c "virtualenv ve"
+sudo su $app -c "ve/bin/pip install lektor==2.3"
+[ -e "/home/$app/lektor/run" ] || (sudo echo -e "\n\n\n" | sudo su $app -c "ve/bin/lektor quickstart --name=\"$3\" --path=\"./run/\"")
 cd run
-sudo su lektor -c "../ve/bin/lektor build"
-output_path=$(sudo su lektor -c "../ve/bin/lektor project-info --output-path")
-sudo su lektor -c "ln -s $output_path $deploy_path"
+sudo su $app -c "../ve/bin/lektor build"
+output_path=$(sudo su $app -c "../ve/bin/lektor project-info --output-path")
+sudo su $app -c "ln -s $output_path $deploy_path"
 sudo echo ve | sudo tee .gitignore
-sudo su lektor -c "git init"
-sudo su lektor -c "git config receive.denyCurrentBranch ignore"
+sudo su $app -c "git init"
+sudo su $app -c "git config receive.denyCurrentBranch ignore"
 sudo cp $current_dir/../conf/post-receive .git/hooks/post-receive
 sudo chmod +x .git/hooks/post-receive
-sudo chown lektor:lektor .git/hooks/post-receive
+sudo chown $app:$app .git/hooks/post-receive
 sudo cp $current_dir/../conf/pre-receive .git/hooks/pre-receive
 sudo chmod +x .git/hooks/pre-receive
-sudo chown lektor:lektor .git/hooks/pre-receive
-sudo su lektor -c "git add .gitignore"
+sudo chown $app:$app .git/hooks/pre-receive
+sudo su $app -c "git add .gitignore"
 sed -i "s@DOMAIN@$domain@g" $current_dir/../conf/contents.lr
-sudo cp $current_dir/../conf/contents.lr /home/lektor/lektor/run/content/contents.lr
-sudo su lektor -c "git add ."
-if [ "$(sudo su lektor -c 'git status --porcelain')" ]
+sudo cp $current_dir/../conf/contents.lr /home/$app/lektor/run/content/contents.lr
+sudo su $app -c "git add ."
+if [ "$(sudo su $app -c 'git status --porcelain')" ]
 then
-    sudo su lektor -c "git commit -m 'initial commit'"
+    sudo su $app -c "git commit -m 'initial commit'"
 fi
 
-sudo chown -R lektor:lektor $base_path
+sudo chown -R $app:$app $base_path
 
 cd $current_dir
 
@@ -92,26 +94,26 @@ fi
 
 sed -i "s@DEPLOY_PATH@$deploy_path/@g" ../conf/nginx.conf
 
-sudo cp ../conf/nginx.conf /etc/nginx/conf.d/$domain.d/lektor.conf
+sudo cp ../conf/nginx.conf /etc/nginx/conf.d/$domain.d/$app.conf
 
-sudo cp ../conf/ynh-lektor.service /etc/systemd/system/
+sudo cp ../conf/ynh-lektor.service /etc/systemd/system/ynh-$app.service
 
 if [ "$ssh_pub_key" ]; then
-    sudo mkdir -p /home/lektor/.ssh
-    if [ ! -e "/home/lektor/.ssh/authorized_keys" ] || [ ! "$(sudo grep "$ssh_pub_key" /home/lektor/.ssh/authorized_keys)" ]; then
-        sudo su -c "echo \"$ssh_pub_key\" >> /home/lektor/.ssh/authorized_keys"
-        sudo chown -R lektor:lektor /home/lektor/.ssh/authorized_keys
+    sudo mkdir -p /home/$app/.ssh
+    if [ ! -e "/home/$app/.ssh/authorized_keys" ] || [ ! "$(sudo grep "$ssh_pub_key" /home/$app/.ssh/authorized_keys)" ]; then
+        sudo su -c "echo \"$ssh_pub_key\" >> /home/$app/.ssh/authorized_keys"
+        sudo chown -R $app:$app /home/$app/.ssh/authorized_keys
     fi
 fi
 
 sudo systemctl daemon-reload
-sudo systemctl enable ynh-lektor
-sudo systemctl start ynh-lektor
+sudo systemctl enable ynh-$app
+sudo systemctl start ynh-$app
 
-sudo cp ../conf/cron /etc/cron.d/lektor
+sudo cp ../conf/cron /etc/cron.d/$app
 
 # Reload Nginx and regenerate SSOwat conf
 sudo service nginx reload
-sudo yunohost app setting lektor unprotected_uris -v "/"
-sudo yunohost app setting lektor protected_uris -v "/admin"
+sudo yunohost app setting $app unprotected_uris -v "/"
+sudo yunohost app setting $app protected_uris -v "/admin"
 sudo yunohost app ssowatconf
