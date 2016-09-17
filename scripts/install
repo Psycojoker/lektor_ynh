@@ -1,11 +1,11 @@
 set -eux
 
 # Retrieve arguments
-domain=$1
-path=$2
-name=$3
-admin_user=$4
-ssh_pub_key=$5
+domain=$YNH_APP_ARG_DOMAIN
+path=$YNH_APP_ARG_PATH
+name=$YNH_APP_ARG_NAME
+admin_user=$YNH_APP_ARG_ADMIN_USER
+ssh_pub_key=$YNH_APP_ARG_SSH_PUB_KEY
 
 # Check domain/path availability
 sudo yunohost app checkurl $domain$path -a lektor
