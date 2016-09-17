@@ -76,6 +76,7 @@ sudo chmod +x .git/hooks/pre-receive
 sudo chown $app:$app .git/hooks/pre-receive
 sudo su $app -c "git add .gitignore"
 sed -i "s@DOMAIN@$domain@g" $current_dir/../conf/contents.lr
+sudo sed -i "s@APP_NAME@$app@g" $current_dir/../conf/contents.lr
 sudo cp $current_dir/../conf/contents.lr /home/$app/lektor/run/content/contents.lr
 sudo su $app -c "git add ."
 if [ "$(sudo su $app -c 'git status --porcelain')" ]
@@ -100,6 +101,7 @@ sudo cp ../conf/nginx.conf /etc/nginx/conf.d/$domain.d/$app.conf
 
 sudo cp ../conf/ynh-lektor.service /etc/systemd/system/ynh-$app.service
 sudo sed -i "s@PORT_NUMBER@$number@g" /etc/systemd/system/ynh-$app.service
+sudo sed -i "s@APP_NAME@$app@g" /etc/systemd/system/ynh-$app.service
 
 if [ "$ssh_pub_key" ]; then
     sudo mkdir -p /home/$app/.ssh
@@ -114,6 +116,7 @@ sudo systemctl enable ynh-$app
 sudo systemctl start ynh-$app
 
 sudo cp ../conf/cron /etc/cron.d/$app
+sudo sed -i "s@APP_NAME@$app@g" /etc/cron.d/$app
 
 # Reload Nginx and regenerate SSOwat conf
 sudo service nginx reload

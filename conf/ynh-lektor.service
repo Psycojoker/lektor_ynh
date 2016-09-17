@@ -1,11 +1,11 @@
 [Unit]
-Description=Lektor admin server
+Description=Lektor admin server for APP_NAME
 After=network.target
 
 [Service]
-User=lektor
-ExecStart=/home/lektor/lektor/ve/bin/lektor server -p 500PORT_NUMBER
-WorkingDirectory=/home/lektor/lektor/run
+User=APP_NAME
+ExecStart=/home/APP_NAME/lektor/ve/bin/lektor server -p 500PORT_NUMBER
+WorkingDirectory=/home/APP_NAME/lektor/run
 ExecReload=/bin/kill -HUP $MAINPID
 KillMode=process
 Restart=on-failure

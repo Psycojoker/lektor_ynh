@@ -2,6 +2,6 @@ title: Welcome to Pouet!
 ---
 body:
 
-To clone this repository: git clone lektor@DOMAIN:/home/lektor/lektor/run lektor
+To clone this repository: git clone APP_NAME@DOMAIN:/home/APP_NAME/lektor/run lektor
 
 To modify it online: https://DOMAIN/admin
