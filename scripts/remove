@@ -11,6 +11,10 @@ sudo rm -f /etc/cron.d/$app
 
 sudo service nginx reload
 
-sudo systemctl stop ynh-$app
+if [ -e /etc/systemd/system/ynh-$app.service ]
+then
+   sudo systemctl stop ynh-$app
+fi
+
 sudo rm -f /etc/systemd/system/ynh-$app.service
 sudo systemctl daemon-reload
