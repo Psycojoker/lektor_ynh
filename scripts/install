@@ -27,7 +27,7 @@ sudo yunohost app setting $app allowed_users -v "$admin_user"
 
 path=${path%/}
 
-sudo yunohost app setting $app version -v "2.3"
+sudo yunohost app setting $app version -v "2.4"
 
 sudo apt-get update
 sudo apt-get install -y python-virtualenv rsync libffi-dev libssl-dev python-dev imagemagick
