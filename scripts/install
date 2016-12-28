@@ -66,6 +66,7 @@ sudo su $app -c "../ve/bin/lektor build"
 output_path=$(sudo su $app -c "../ve/bin/lektor project-info --output-path")
 sudo su $app -c "ln -s $output_path $deploy_path"
 sudo echo ve | sudo tee .gitignore
+sudo echo -e "ve\n*.pyc" | sudo tee .gitignore
 sudo su $app -c "git init"
 sudo su $app -c "git config receive.denyCurrentBranch ignore"
 sudo cp $current_dir/../conf/post-receive .git/hooks/post-receive
